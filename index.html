@@ -1,48 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daud Farzand Portfolio Website</title>
+    <link rel="stylesheet"
+    href="https:/cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+      integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc="
+      crossorigin="anonymous"
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Stack Developer | John Doe</title>
-</head>
+    <!-- Update these with your own fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:300,900&display=swap" rel="stylesheet">
 
-<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <header>
+      <div class="logo" <img src="images/devjane.png" alt="logo"></div>
 
-    <header style="background-color: #333; color: #fff; text-align: center; padding: 20px 0;">
-        <h1 style="margin: 0;">John Doe</h1>
-        <p>Full Stack Developer</p>
+      <button class="nav-toggle" aria-label="toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
+          <li class="nav__item">
+            <a href="#" class="nav__link">My Services</a>
+          </li>
+          <li class="nav__item"><a href="#" class="nav__link">About me</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">My Work</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <section style="padding: 40px 10%;">
-        <h2 style="text-align: center;">About Me</h2>
-        <p style="text-align: justify; line-height: 1.6;">
-            Hello! I'm John, a passionate full stack developer with expertise in both front-end and back-end technologies. I love building scalable and user-friendly web applications. With over 5 years of experience, I've worked on a diverse range of projects and I'm always eager to take on new challenges.
-        </p>
+    <!-- Introduction -->
+    <section class="intro" id="home">
+      <h1 class="section__title section__title--intro">
+        Hi, I am <strong>Daud Farzand</strong>
+      </h1>
+      <p class="section__subtitle section__subtitle--intro">front-end dev</p>
+      <img src="img/dev-jane-01.jpg" alt="a picture of Daud Farzand smiling" />
     </section>
 
-    <section style="padding: 40px 10%; background-color: #e9e9e9;">
-        <h2 style="text-align: center;">Skills</h2>
-        <ul style="list-style-type: none; padding: 0;">
-            <li style="display: inline-block; margin: 10px; padding: 10px 20px; background-color: #333; color: #fff;">HTML & CSS</li>
-            <li style="display: inline-block; margin: 10px; padding: 10px 20px; background-color: #333; color: #fff;">JavaScript</li>
-            <li style="display: inline-block; margin: 10px; padding: 10px 20px; background-color: #333; color: #fff;">Node.js</li>
-            <li style="display: inline-block; margin: 10px; padding: 10px 20px; background-color: #333; color: #fff;">React</li>
-            <li style="display: inline-block; margin: 10px; padding: 10px 20px; background-color: #333; color: #fff;">MongoDB</li>
-        </ul>
-    </section>
+    <!-- My Services -->
+    <section class="my-services" id="services">
+      <h2 class="section__title section__title--services">What I do</h2>
+      <div class="services">
+        <div class="service">
+          <h3>Design + Development</h3>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem obcaecati architecto deleniti, nisi omnis nesciunt, dolorem odio molestiae quasi laborum ipsa. Maiores aliquid ipsam laboriosam?</p>
+        </div>
+        <!-- /service -->
 
-    <section style="padding: 40px 10%;">
-        <h2 style="text-align: center;">Contact</h2>
-        <p style="text-align: center;">
-            Want to work with me or just say hi? Drop me an email at: <a href="mailto:john.doe@example.com" style="color: #333; text-decoration: none;">john.doe@example.com</a>
-        </p>
-    </section>
+        <div class="service">
+          <h3>E-Commerce</h3>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam voluptas labore aspernatur soluta doloremque aut a voluptatem explicabo sunt architecto provident, minus incidunt culpa autem?</p>
+        </div>
+        <!-- /service -->
 
-    <footer style="background-color: #333; color: #fff; text-align: center; padding: 20px 0;">
-        <p>&copy; 2023 John Doe. All rights reserved.</p>
+        <div class="service">
+          <h3>WordPress</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis reprehenderit dolores exercitationem nihil velit aliquid, in excepturi numquam, amet ipsum aliquam praesentium, eveniet sint omnis!</p>
+        </div>
+        <!-- /service -->
+      </div>  <!-- /services -->
+
+      <a href="#work" class="btn">My Work</a>
+    </section> <!-- /my-services -->
+
+    <!-- About Me -->
+    <section class="about-me" id="about">
+      <h2 class="section__title section__title--about">Who I am</h2>
+      <p class="section__subtitle section__subtitle--about"></p>
+
+      <div class="about-me__body">
+        <p></p>
+        <p></p>
+      </div>
+
+      <img src="img/dev-jane-02.jpg" alt="Jane leaning against a bus">
+    </section> <!-- /about-me -->
+
+    <!-- My Work -->
+    <section class="my-work" id="work">
+      <h2 class="section__title">My work</h2>
+      <p class="section__subtitle"></p>
+
+      <div class="portfolio">
+        <!-- Portfolio item 01 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-01.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 02 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-02.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 03 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-03.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 04 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-04.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 05 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-05.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 06 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-06.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 07 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-07.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 08 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-08.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 09 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-09.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 10 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-10.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 11 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-11.jpg" alt="" class="portfolio__img" />
+        </a>
+
+        <!-- Portfolio item 12 -->
+        <a href="#" class="portfolio__item">
+          <img src="img/portfolio-12.jpg" alt="" class="portfolio__img"
+      </div> 
+    </section> <!-- /my-work -->
+
+    <!-- Footer -->
+    <footer>
+      <!-- replace with your own info -->
+      <a href="mailto:daud.developer@proton.me" class="footer__link">daud.developer@proton.me</a>
+      <ul class="social-list">
+        <li class="social-list__item"><a href="https://www.linkedin.com/in/daud-farzand-982743192/" class="social-list__link">linkedin</a></li>
+        <li class="social-list__item"><a href="https://github.com/dfk007" class="social-list__link">github</a></li>
+        <li class="social-list__item"><a href="https://www.instagram.com/twenty_second_savage/" class="social-list__link">instagram</a></li>
+        <li class="social-list__item"><a href="https://drive.google.com/file/d/1klYkkK6W2nYQI8no3qZcgqZqIYarnfoc/view?usp=sharing" target="_blank" class="social-list__link">resume</a></li>
+      </ul>
     </footer>
-
-</body>
-
+  </body>
 </html>
