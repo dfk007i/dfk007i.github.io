@@ -10,3 +10,6 @@ navLinks.forEach(link => {
         document.body.classList.remove('nav-open');
     })
 })
+
+
+alert("Code repository already submitted to server.!");
