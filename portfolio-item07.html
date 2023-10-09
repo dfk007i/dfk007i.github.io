@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>linux_12</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#content----omit-in-toc---">Content </a></li>
+<li><a href="#basics">Basics</a>
+<ul>
+<li><a href="#file-hierarchy-standard-fhs">File Hierarchy Standard (FHS)</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#globs-wildcards">Globs (Wildcards)</a></li>
+<li><a href="#regex">Regex</a></li>
+<li><a href="#stream-redirection">Stream redirection</a></li>
+</ul>
+</li>
+<li><a href="#disk-and-file-system-management">Disk and File System Management</a>
+<ul>
+<li><a href="#general-disk-manipulation-non-lvm">General Disk Manipulation (non-LVM)</a></li>
+<li><a href="#lvm">LVM</a></li>
+</ul>
+</li>
+<li><a href="#automatic-mounting-etcfstab">Automatic mounting (/etc/fstab)</a></li>
+<li><a href="#text-readers--editors">Text Readers & Editors</a>
+<ul>
+<li><a href="#less">Less</a></li>
+<li><a href="#vi">VI</a></li>
+</ul>
+</li>
+<li><a href="#user-and-group-management">User and Group Management</a></li>
+<li><a href="#file-system-permissions">File System Permissions</a></li>
+<li><a href="#ssh">SSH</a></li>
+<li><a href="#ipv6-disable">IPv6 (disable)</a></li>
+<li><a href="#cronjobs">Cronjobs</a></li>
+<li><a href="#package-management">Package Management</a>
+<ul>
+<li><a href="#rpm">RPM</a></li>
+<li><a href="#yum">YUM</a></li>
+</ul>
+</li>
+<li><a href="#services-systemd">Services (systemd)</a></li>
+<li><a href="#nfs">NFS</a></li>
+<li><a href="#samba">Samba</a></li>
+<li><a href="#ftp">FTP</a></li>
+<li><a href="#mysql-server">MySQL Server</a></li>
+<li><a href="#other">Other</a></li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="content----omit-in-toc---">Content <!-- omit in toc --></h1>
+<ul>
+<li><a href="#basics">Basics</a>
+<ul>
+<li><a href="#file-hierarchy-standard-fhs">File Hierarchy Standard (FHS)</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#globs-wildcards">Globs (Wildcards)</a></li>
+<li><a href="#regex">Regex</a></li>
+<li><a href="#stream-redirection">Stream redirection</a></li>
+</ul>
+</li>
+<li><a href="#disk-and-file-system-management">Disk and File System Management</a>
+<ul>
+<li><a href="#general-disk-manipulation-non-lvm">General Disk Manipulation (non-LVM)</a></li>
+<li><a href="#lvm">LVM</a></li>
+</ul>
+</li>
+<li><a href="#automatic-mounting-etcfstab">Automatic mounting (/etc/fstab)</a></li>
+<li><a href="#text-readers--editors">Text Readers &amp; Editors</a>
+<ul>
+<li><a href="#less">Less</a></li>
+<li><a href="#vi">VI</a></li>
+</ul>
+</li>
+<li><a href="#user-and-group-management">User and Group Management</a></li>
+<li><a href="#file-system-permissions">File System Permissions</a></li>
+<li><a href="#ssh">SSH</a></li>
+<li><a href="#ipv6-disable">IPv6 (disable)</a></li>
+<li><a href="#cronjobs">Cronjobs</a></li>
+<li><a href="#package-management">Package Management</a>
+<ul>
+<li><a href="#rpm">RPM</a></li>
+<li><a href="#yum">YUM</a></li>
+</ul>
+</li>
+<li><a href="#services-systemd">Services (systemd)</a></li>
+<li><a href="#nfs">NFS</a></li>
+<li><a href="#samba">Samba</a></li>
+<li><a href="#ftp">FTP</a></li>
+<li><a href="#mysql-server">MySQL Server</a></li>
+<li><a href="#other">Other</a></li>
+</ul>
+<h1 id="basics">Basics</h1>
+<h2 id="file-hierarchy-standard-fhs">File Hierarchy Standard (FHS)</h2>
+
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/bin</td>
+<td>Binaries (User)</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>Static boot loader files</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>Host specific configs</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>Shared libraries and kernel modules</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>Binaries (System/root)</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>Varying files (e.g. Logs)</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>3rd party software</td>
+</tr>
+<tr>
+<td>/proc</td>
+<td>Pseudo file system</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>Pseudo file system</td>
+</tr>
+<tr>
+<td>/mnt</td>
+<td>Mountpoint for internal drives</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>Mountpoint for external drives</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>User homes</td>
+</tr>
+<tr>
+<td>/run</td>
+<td>PID files of running processes</td>
+</tr>
+</tbody>
+</table><h2 id="commands">Commands</h2>
+<p><strong>File System Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cd</code></td>
+<td><code>-</code></td>
+<td>Navigate to last dir</td>
+</tr>
+<tr>
+<td></td>
+<td><code>~</code></td>
+<td>Navigate to home</td>
+</tr>
+<tr>
+<td></td>
+<td><code>~username</code></td>
+<td>Navigate to home of specified user</td>
+</tr>
+<tr>
+<td><code>pwd</code></td>
+<td></td>
+<td>Print working dir</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td></td>
+<td>Print dir content</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-l</code></td>
+<td>Format as list</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-a</code></td>
+<td>Show hidden items (<code>-A</code> without <code>.</code> and <code>..</code>)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-r</code></td>
+<td>Invert order</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-R</code></td>
+<td>Recurse</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-S</code></td>
+<td>Sort by size</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-t</code></td>
+<td>Sort by date modified</td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td><code>-p</code></td>
+<td>Create dir with parents</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td><code>-r</code></td>
+<td>Copy dir</td>
+</tr>
+<tr>
+<td><code>rmdir</code></td>
+<td><code>-p</code></td>
+<td>Remove dir and empty parents</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td><code>-rf</code></td>
+<td>Remove dir recursively, <code>-f</code> without confirmation</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td></td>
+<td>Move recursively</td>
+</tr>
+<tr>
+<td><code>find</code></td>
+<td><code>-iname pattern</code></td>
+<td>Search dir/file case-insensitive</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-mmin n</code></td>
+<td>Last modified n minutes ago</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-mtime n</code></td>
+<td>Last modified n days ago</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-regex pattern</code></td>
+<td>Path matches pattern</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-size n[kMG]</code></td>
+<td>By file size (<code>-n</code> less than; <code>+n</code> greater than)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>! searchparams</code></td>
+<td>Invert search</td>
+</tr>
+</tbody>
+</table><p><strong>File Manipulation</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td><code>file</code></td>
+<td>Print content</td>
+</tr>
+<tr>
+<td><code>tac</code></td>
+<td><code>file</code></td>
+<td>Print content inverted</td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td><code>file</code></td>
+<td>Print sorted</td>
+</tr>
+<tr>
+<td></td>
+<td><code>file -r -u</code></td>
+<td>Print sorted descending without dublicates</td>
+</tr>
+<tr>
+<td><code>wc</code></td>
+<td><code>file</code></td>
+<td>Count Lines, Words, Chars (Bytes)</td>
+</tr>
+<tr>
+<td><code>head</code></td>
+<td><code>-n10 file | tail -n5</code></td>
+<td>Print lines 5-10</td>
+</tr>
+<tr>
+<td><code>tail</code></td>
+<td><code>-f file</code></td>
+<td>Print new lines automatically</td>
+</tr>
+<tr>
+<td><code>cut</code></td>
+<td><code>-f -4,7-10,12,15- file</code></td>
+<td>Print selected fields (tab delimited)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-c -4,7-10,12,15- file</code></td>
+<td>Print selected characters positions</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-f 2,4 -d, --output-delimiter=$'\t' file</code></td>
+<td>Change delimiter (but use tab for output)</td>
+</tr>
+<tr>
+<td><code>uniq</code></td>
+<td><code>file</code></td>
+<td>Hide consecutive identical lines</td>
+</tr>
+<tr>
+<td></td>
+<td><code>file -c</code></td>
+<td>Show consecutive identical line count</td>
+</tr>
+<tr>
+<td></td>
+<td><code>file -u</code></td>
+<td>Hide consecutive identical lines</td>
+</tr>
+<tr>
+<td><code>file</code></td>
+<td><code>file</code></td>
+<td>Get file type</td>
+</tr>
+</tbody>
+</table><p><strong>Archiving</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tar</code></td>
+<td><code>cfv archiv.tar file1 file2</code></td>
+<td>Create archive / add or overwrite content</td>
+</tr>
+<tr>
+<td></td>
+<td><code>tfv archiv.tar</code></td>
+<td>Show content</td>
+</tr>
+<tr>
+<td></td>
+<td><code>xf archiv.tar [-C ~/extracted]</code></td>
+<td>Unpack (and decompress) archive (to ~/extracted)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>cfvj archiv.tar.bz2 file</code></td>
+<td>bzip2 create compressed archive</td>
+</tr>
+<tr>
+<td></td>
+<td><code>cfvz archiv.tar.gz file</code></td>
+<td>create gzip compressed archive</td>
+</tr>
+<tr>
+<td></td>
+<td><code>cfa archiv.tar.[komp] file</code></td>
+<td>create compressed archive (auto type based on name)</td>
+</tr>
+<tr>
+<td><code>bzip2</code> / <code>gzip</code></td>
+<td><code>file1 file2</code></td>
+<td>Compress files (individually)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-d file1 file2</code></td>
+<td>Uncompress files</td>
+</tr>
+</tbody>
+</table><p><strong>Other</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;command&gt;</code></td>
+<td><code>--help</code></td>
+<td>Help of current command (not standardized)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-h</code></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><code>-?</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>man</code></td>
+<td><code>&lt;command&gt;</code></td>
+<td>Manual page of command</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-k keyword</code></td>
+<td>Search command by keyword (oder <code>apropos</code>)</td>
+</tr>
+<tr>
+<td><code>alias</code></td>
+<td></td>
+<td>Show aliases</td>
+</tr>
+<tr>
+<td></td>
+<td><code>name='befehl'</code></td>
+<td>Create alias</td>
+</tr>
+</tbody>
+</table><h2 id="globs-wildcards">Globs (Wildcards)</h2>
+<p>The dot <code>.</code> in front of hidden items is ignored by glob patterns!</p>
+
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>?</code></td>
+<td>Any single character</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Any characters</td>
+</tr>
+<tr>
+<td><code>[ac-e]</code></td>
+<td>1 character in enum</td>
+</tr>
+<tr>
+<td><code>[!ac-e]</code></td>
+<td>1 character not in enum</td>
+</tr>
+</tbody>
+</table><h2 id="regex">Regex</h2>
+<p>Bash itself does not know regex. Use programs like <code>grep</code>, <code>sed</code>, <code>awk</code>.</p>
+<p><strong>Steuerzeichen</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.</code></td>
+<td>Any single character</td>
+</tr>
+<tr>
+<td><code>[ac-e]</code></td>
+<td>1 character in enum</td>
+</tr>
+<tr>
+<td><code>[^ac-e]</code></td>
+<td>1 character not in enum</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>Start of string</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>End of string</td>
+</tr>
+<tr>
+<td><code>\d</code></td>
+<td>Digit</td>
+</tr>
+<tr>
+<td><code>\D</code></td>
+<td>Not a digit</td>
+</tr>
+<tr>
+<td><code>\s</code></td>
+<td>Whitespace</td>
+</tr>
+<tr>
+<td><code>\S</code></td>
+<td>Not a Whitespace</td>
+</tr>
+<tr>
+<td><code>\&lt;</code></td>
+<td>Start of word</td>
+</tr>
+<tr>
+<td><code>\&gt;</code></td>
+<td>End of word</td>
+</tr>
+<tr>
+<td><code>pattern?</code></td>
+<td>Quantifier 0 or 1</td>
+</tr>
+<tr>
+<td><code>pattern*</code></td>
+<td>Quantifier 0…n</td>
+</tr>
+<tr>
+<td><code>pattern+</code></td>
+<td>Quantifier 1…n</td>
+</tr>
+<tr>
+<td><code>pattern{x}</code></td>
+<td>Quantifier exactly x</td>
+</tr>
+<tr>
+<td><code>pattern{x,}</code></td>
+<td>Quantifier x…n</td>
+</tr>
+<tr>
+<td><code>pattern{x,y}</code></td>
+<td>Quantifier x…y</td>
+</tr>
+<tr>
+<td><code>pattern{,y}</code></td>
+<td>Quantifier 0…y</td>
+</tr>
+</tbody>
+</table><p><strong>Grep</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grep</code></td>
+<td><code>pattern file</code></td>
+<td>Extended Regex</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-E pattern file</code></td>
+<td>Extended Regex</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-v pattern file</code></td>
+<td>Invert match</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-w pattern file</code></td>
+<td>Word match</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-i pattern file</code></td>
+<td>Ignore case</td>
+</tr>
+</tbody>
+</table><h2 id="stream-redirection">Stream redirection</h2>
+<ul>
+<li><code>&gt;</code> overwrite</li>
+<li><code>&gt;&gt;</code> append</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt; file</code> or <code>1&gt; file</code></td>
+<td>STDOUT to file</td>
+</tr>
+<tr>
+<td><code>&lt; file</code></td>
+<td>Datei to STDIN</td>
+</tr>
+<tr>
+<td><code>2&gt; file</code></td>
+<td>STDERR to file</td>
+</tr>
+<tr>
+<td><code>2&gt;&amp;1</code></td>
+<td>STDERR to same target as STDOUT</td>
+</tr>
+<tr>
+<td><code>&gt; file 2&gt;&amp;1</code></td>
+<td>STDOUT and STDERR to file</td>
+</tr>
+</tbody>
+</table><h1 id="disk-and-file-system-management">Disk and File System Management</h1>
+<h2 id="general-disk-manipulation-non-lvm">General Disk Manipulation (non-LVM)</h2>
+<p>Creating physical partitions is <strong>not required</strong>! You can create PVs directly!</p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fdisk -l</code></td>
+<td>List physical disks and partitions</td>
+</tr>
+<tr>
+<td><code>fdisk /dev/sdb</code><br><code>n</code></td>
+<td>Create new partition</td>
+</tr>
+<tr>
+<td><code>fdisk /dev/sdb</code><br><code>t</code><br><code>8e</code></td>
+<td>Change partition type to <em>Linux LVM</em></td>
+</tr>
+<tr>
+<td><code>mkfs.xfs /dev/myVG/myVol</code></td>
+<td>Format LV with XFS</td>
+</tr>
+<tr>
+<td><code>mkfs.ext4 -f /dev/myVG/myVol</code></td>
+<td>Format LV with EXT4 (overwrite)</td>
+</tr>
+<tr>
+<td><code>blkid /dev/myVG/myVol</code></td>
+<td>Show UUID and formatting of volume</td>
+</tr>
+<tr>
+<td><code>mount</code></td>
+<td>Show what is mounted where</td>
+</tr>
+<tr>
+<td><code>mount -t ext4 /dev/myVG/myVol /mountpoint</code></td>
+<td>Mount LV to /mountpoint</td>
+</tr>
+<tr>
+<td><code>umount /dev/myVG/myVol</code></td>
+<td>Unmount LV from /mountpoint</td>
+</tr>
+<tr>
+<td><code>umount /mountpoint</code></td>
+<td>Unmount LV from /mountpoint</td>
+</tr>
+<tr>
+<td><code>mount -a</code></td>
+<td>Mount as configured in /etc/fstab</td>
+</tr>
+<tr>
+<td><code>df</code></td>
+<td>Show disk usage</td>
+</tr>
+<tr>
+<td><code>xfs_growfs /dev/myVG/myVol</code></td>
+<td>Resize xfs filesystem</td>
+</tr>
+<tr>
+<td><code>resize2fs /dev/myVG/myVol</code></td>
+<td>Resize ext3/4 filesystem</td>
+</tr>
+</tbody>
+</table><h2 id="lvm">LVM</h2>
+
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical Volume</td>
+<td>Representation of physical volume</td>
+</tr>
+<tr>
+<td>Volume Group</td>
+<td>Group of physical volumes</td>
+</tr>
+<tr>
+<td>Logical Volume</td>
+<td>Volumes placed on volume group</td>
+</tr>
+</tbody>
+</table><p><strong>Physical Volume Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pvs</code></td>
+<td>Show PVs</td>
+</tr>
+<tr>
+<td><code>pvdisplay</code></td>
+<td>Show detailed PV information</td>
+</tr>
+<tr>
+<td><code>pvcreate /dev/sdb1</code></td>
+<td>Initialize physical volume for use with LVM</td>
+</tr>
+<tr>
+<td><code>pvs -o+pv_used</code></td>
+<td>Show usage of PVs</td>
+</tr>
+<tr>
+<td><code>pvmove /dev/sdb1</code></td>
+<td>Move contents of PV to other PVs of VG</td>
+</tr>
+<tr>
+<td><code>pvremove /dev/sdb1</code></td>
+<td>Remove PV</td>
+</tr>
+</tbody>
+</table><p><strong>Volume Group Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vgs</code></td>
+<td>Show VGs</td>
+</tr>
+<tr>
+<td><code>vgdisplay</code></td>
+<td>Show detailed VG information</td>
+</tr>
+<tr>
+<td><code>vgcreate myVG /dev/sda1</code></td>
+<td>Create new VG</td>
+</tr>
+<tr>
+<td><code>vgextend myVG /dev/sdb1</code></td>
+<td>Add PV to VG</td>
+</tr>
+<tr>
+<td><code>vgreduce myVG /dev/sdb1</code></td>
+<td>Remove PV from VG (<code>pvmove</code> first!)</td>
+</tr>
+<tr>
+<td><code>vgremove myVG</code></td>
+<td>Remove VG</td>
+</tr>
+</tbody>
+</table><p><strong>Logical Volume Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lvs</code></td>
+<td>Show LVs</td>
+</tr>
+<tr>
+<td><code>lvdisplay</code></td>
+<td>Show detailed LV information</td>
+</tr>
+<tr>
+<td><code>lvcreate -n myVol -L 3G myVG</code></td>
+<td>Create LV</td>
+</tr>
+<tr>
+<td><code>lvextend -L +10G /dev/myVG/myVol -r</code></td>
+<td>Expand LV by 10GB and resize filesystem</td>
+</tr>
+<tr>
+<td><code>lvextend -L 10G /dev/myVG/myVol --resizefs</code></td>
+<td>Expand LV to 10GB and resize filesystem</td>
+</tr>
+<tr>
+<td><code>lvextend /dev/myVG/myVol /dev/sdb1</code></td>
+<td>Expand LV by PV’s size</td>
+</tr>
+<tr>
+<td><code>lvextend -l +100%FREE /dev/myVG/myVol</code></td>
+<td>Expand LV to 100% available VG size</td>
+</tr>
+<tr>
+<td><code>lvreduce -L -10G /dev/myVG/myVol</code></td>
+<td>Reduce LV by 10GB</td>
+</tr>
+<tr>
+<td><code>lvremove /dev/myVG/myVol</code></td>
+<td>Remove logical volume</td>
+</tr>
+</tbody>
+</table><h1 id="automatic-mounting-etcfstab">Automatic mounting (/etc/fstab)</h1>
+<p>Example:</p>
+
+<table>
+<thead>
+<tr>
+<th>file system</th>
+<th>mount point</th>
+<th>type</th>
+<th>option</th>
+<th>dump</th>
+<th>pass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/dev/sdb1</td>
+<td>/myDir1</td>
+<td>ext4</td>
+<td>defaults</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>/dev/mapper/myVG-myVol</td>
+<td>/myDir2</td>
+<td>xfs</td>
+<td>defaults</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>UUID=a924e3de-0414-4228-86bf-b65a4c8ff8ab</td>
+<td>/myDir3</td>
+<td>xfs</td>
+<td>defaults</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>/dev/mapper/myVG-swap</td>
+<td>swap</td>
+<td>swap</td>
+<td>defaults</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>192.168.1.1:/shared</td>
+<td>/targetdir</td>
+<td>nfs</td>
+<td>async</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>//server/share</td>
+<td>/targetdir</td>
+<td>cifs</td>
+<td>credentials=/root/cifs/.username</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table><p>Column <strong>dump</strong> configures file system for backup with <em>dump</em> (program).</p>
+<p>Column <strong>pass</strong> configures order of file system check during boot. <code>0</code> means no check.</p>
+<h1 id="text-readers--editors">Text Readers &amp; Editors</h1>
+<h2 id="less">Less</h2>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q</code></td>
+<td>Quit</td>
+</tr>
+<tr>
+<td><code>R</code></td>
+<td>Refresh content</td>
+</tr>
+<tr>
+<td><code>F</code></td>
+<td>Auto scroll</td>
+</tr>
+<tr>
+<td><code>g number</code></td>
+<td>Go to line</td>
+</tr>
+<tr>
+<td><code>m lowercaseLetter</code></td>
+<td>Mark line</td>
+</tr>
+<tr>
+<td><code>' lowercaseLetter</code></td>
+<td>Go to mark</td>
+</tr>
+<tr>
+<td><code>/pattern</code></td>
+<td>Search forward</td>
+</tr>
+<tr>
+<td><code>?pattern</code></td>
+<td>Search backward</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>Next search result</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>Last search result</td>
+</tr>
+<tr>
+<td><code>ESC u</code></td>
+<td>Remove highlighting from search</td>
+</tr>
+</tbody>
+</table><h2 id="vi">VI</h2>
+<p><strong>Editing</strong></p>
+<p>To leave editing mode press <code>ESC</code>.</p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i</code></td>
+<td>insert before cursor</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>insert after cursor</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>insert at end of line</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>new line below</td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>new line above</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>undo</td>
+</tr>
+<tr>
+<td><code>.</code></td>
+<td>repeat last command</td>
+</tr>
+<tr>
+<td><code>yy</code></td>
+<td>copy line</td>
+</tr>
+<tr>
+<td><code>5yy</code></td>
+<td>copy 5 lines</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>paste below</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>paste above</td>
+</tr>
+<tr>
+<td><code>x</code></td>
+<td>delete character</td>
+</tr>
+<tr>
+<td><code>5x</code></td>
+<td>delete 5 characters</td>
+</tr>
+<tr>
+<td><code>dd</code></td>
+<td>delete line</td>
+</tr>
+<tr>
+<td><code>5dd</code></td>
+<td>delete 5 lines</td>
+</tr>
+<tr>
+<td><code>:10,20d</code></td>
+<td>delete lines 10-20</td>
+</tr>
+<tr>
+<td><code>d0</code></td>
+<td>delete to line begin</td>
+</tr>
+<tr>
+<td><code>d$</code></td>
+<td>delete to line end</td>
+</tr>
+</tbody>
+</table><p><strong>Navigation</strong></p>
+<p>Navigate as usual with <code>arrow keys</code>, <code>home</code>, <code>end</code>, <code>pg up</code>, <code>pg dn</code>.</p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5G</code></td>
+<td>go to line 5</td>
+</tr>
+<tr>
+<td><code>H</code></td>
+<td>go to top of screen</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>go to middle of screen</td>
+</tr>
+<tr>
+<td><code>L</code></td>
+<td>go to end of screen</td>
+</tr>
+<tr>
+<td><code>5w</code></td>
+<td>move over 7 words</td>
+</tr>
+<tr>
+<td><code>5b</code></td>
+<td>move back 5 words</td>
+</tr>
+</tbody>
+</table><p><strong>Other</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/foo</code></td>
+<td>search forward</td>
+</tr>
+<tr>
+<td><code>?foo</code></td>
+<td>search backwards</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>repeat search</td>
+</tr>
+<tr>
+<td><code>:w</code></td>
+<td>save</td>
+</tr>
+<tr>
+<td><code>:q</code></td>
+<td>close</td>
+</tr>
+<tr>
+<td><code>:wq</code></td>
+<td>save and close</td>
+</tr>
+<tr>
+<td><code>:q!</code></td>
+<td>close without saving</td>
+</tr>
+<tr>
+<td><code>:!command</code></td>
+<td>run bash command</td>
+</tr>
+<tr>
+<td><code>:r foo</code></td>
+<td>read file foo into this file</td>
+</tr>
+</tbody>
+</table><h1 id="user-and-group-management">User and Group Management</h1>
+<p><strong>UID</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>UID</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;1000</td>
+<td>system account</td>
+</tr>
+<tr>
+<td>&gt;1000</td>
+<td>user account</td>
+</tr>
+</tbody>
+</table><p><strong>User Database</strong></p>
+<p>User info without passwords is stored in <code>/etc/passwd</code>.</p>
+
+<table>
+<thead>
+<tr>
+<th>username</th>
+<th>PW</th>
+<th>UID</th>
+<th>GID</th>
+<th>Kommentar</th>
+<th>HOME</th>
+<th>SHELL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hfict</td>
+<td>x</td>
+<td>1000</td>
+<td>1000</td>
+<td></td>
+<td>/home/hfict</td>
+<td>/bin/bash</td>
+</tr>
+</tbody>
+</table><p><strong>Group Database</strong></p>
+<p>Group info with secondary group members are stored in <code>/etc/group</code>.<br>
+Primary group members are identified by GID in user database.</p>
+
+<table>
+<thead>
+<tr>
+<th>groupname</th>
+<th>PW</th>
+<th>GID</th>
+<th>Users</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>wheel</td>
+<td>x</td>
+<td>10</td>
+<td>hfict,user2</td>
+</tr>
+</tbody>
+</table><p><strong>Password Database</strong></p>
+<p>Hashed user passwords are stored in <code>/etc/shadow</code>.<br>
+Password encryption is configured in <code>/etc/login.defs</code>.</p>
+
+<table>
+<thead>
+<tr>
+<th>username</th>
+<th>PW</th>
+<th>Last PW change</th>
+<th>Minimum</th>
+<th>Maximum</th>
+<th>Warn</th>
+<th>Inactive</th>
+<th>Expire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hfict</td>
+<td>[hash]</td>
+<td>17803</td>
+<td>0</td>
+<td>99999</td>
+<td>7</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><p>PW:</p>
+<ul>
+<li><code>[hash]</code> Verschlüsseltest Passwort</li>
+<li><code>![hash]</code> Account Gesperrt</li>
+<li><code>!!</code> oder <code>*</code> Account gesperrt, kein Passwort gesetzt</li>
+</ul>
+<p><strong>Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td><code>username</code></td>
+<td>ID und Gruppen eines Benutzers anzeigen</td>
+</tr>
+<tr>
+<td><code>who</code></td>
+<td></td>
+<td>Angemeldete Benutzer anzeigen</td>
+</tr>
+<tr>
+<td><code>last</code></td>
+<td></td>
+<td>Letzte Logins anzeigen</td>
+</tr>
+<tr>
+<td><code>lastb</code></td>
+<td></td>
+<td>Letzte fehlgeschlagene Logins anzeigen</td>
+</tr>
+<tr>
+<td><code>sudo</code></td>
+<td><code>-u user command</code></td>
+<td>Befehl mit Rechten von user ausführen (Default ist root)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-i</code> oder <code>su -</code></td>
+<td>Shell mit root Rechten</td>
+</tr>
+<tr>
+<td><code>su</code></td>
+<td></td>
+<td>Shell als root (non-login shell)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-</code></td>
+<td>Shell als root (login shell)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>- user</code></td>
+<td>Shell als user</td>
+</tr>
+<tr>
+<td><code>useradd</code></td>
+<td><code>-u 2101 -g primarygroup -c comment username</code></td>
+<td>Benutzer anlegen (ohne <code>-g</code> wird neue Gruppe erstellt)</td>
+</tr>
+<tr>
+<td><code>usermod</code></td>
+<td><code>-G group1,group2</code></td>
+<td>Sekundärgruppen definieren (überschreiben)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-aG group,group2</code></td>
+<td>Sekundärgruppen hinzufügen</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-l username</code></td>
+<td>Benutzernamen ändern</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-L</code></td>
+<td>Lock Account</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-U</code></td>
+<td>Unlock Account</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-s shellpath</code></td>
+<td>Shell ändern</td>
+</tr>
+<tr>
+<td><code>userdel</code></td>
+<td><code>-r username</code></td>
+<td>Benutzer inkl. Home und Mail-Spool löschen</td>
+</tr>
+<tr>
+<td><code>passwd</code></td>
+<td><code>username</code></td>
+<td>Passwort ändern (interaktiv)</td>
+</tr>
+<tr>
+<td><code>groupadd</code></td>
+<td><code>groupname</code></td>
+<td>Gruppe anlegen (Optional mit <code>-g</code> GID setzen)</td>
+</tr>
+<tr>
+<td><code>groupdel</code></td>
+<td><code>groupname</code></td>
+<td>Gruppe löschen</td>
+</tr>
+</tbody>
+</table><h1 id="file-system-permissions">File System Permissions</h1>
+<p>Permissions can be set on:</p>
+<ul>
+<li>User (owner)</li>
+<li>Group (owner)</li>
+<li>Others</li>
+</ul>
+<p>Only root can change <em>User</em>. <em>User</em> can change <em>Group</em>.</p>
+<p>Basic permissions (Add binary flags to combine):</p>
+
+<table>
+<thead>
+<tr>
+<th>Char</th>
+<th>Binary Flag</th>
+<th>Permission</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>r</td>
+<td>4</td>
+<td>read</td>
+</tr>
+<tr>
+<td>w</td>
+<td>2</td>
+<td>write</td>
+</tr>
+<tr>
+<td>x</td>
+<td>1</td>
+<td>execute</td>
+</tr>
+</tbody>
+</table><p>Advanced permissions (place in front of basic permissions: <code>chmod 1777 shared</code>).:</p>
+
+<table>
+<thead>
+<tr>
+<th>Char</th>
+<th>Binary Flag</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t / T</td>
+<td>1</td>
+<td>Sticky Bit</td>
+<td><em>Others</em> can’t delete content (only applicable for directories)</td>
+</tr>
+<tr>
+<td>s / S</td>
+<td>2</td>
+<td>SGID-Bit</td>
+<td>File: run with permissions of <em>Group</em><br>Dir: New elements inherit <em>Group</em></td>
+</tr>
+<tr>
+<td>s / S</td>
+<td>4</td>
+<td>SUID-Bit</td>
+<td>File is run with permissions of <em>User</em> (only applicable for files)</td>
+</tr>
+</tbody>
+</table><p>Advanced permissions replace the <strong>x</strong> when using <code>ls -l</code>. Lower case if <strong>x</strong> is set, upper case if <strong>x</strong> is not set.</p>
+<p><em>Read</em> permission on a directory only allows to see the directory itself but not it’s contents. Use <em>execute</em> permission to show contents.</p>
+<p><strong>Commands</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Param</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>chmod</code></td>
+<td><code>-R [uog] dirname</code></td>
+<td>Set permissions recursively using binary flags</td>
+</tr>
+<tr>
+<td></td>
+<td><code>+[suog] filename</code></td>
+<td>Add permissions using binary flags</td>
+</tr>
+<tr>
+<td></td>
+<td><code>-[suog] filename</code></td>
+<td>Remove permissions using binary flags</td>
+</tr>
+<tr>
+<td></td>
+<td><code>u+x filename</code></td>
+<td>Add <em>execute</em> permission for <em>User</em></td>
+</tr>
+<tr>
+<td></td>
+<td><code>g+wx filename</code></td>
+<td>Add <em>write</em> and <em>execute</em> permissions for <em>Group</em></td>
+</tr>
+<tr>
+<td></td>
+<td><code>o-r filename</code></td>
+<td>Remove <em>read</em> permission for <em>Others</em></td>
+</tr>
+<tr>
+<td><code>chown</code></td>
+<td><code>-R user:group filename</code></td>
+<td>Change owner (<em>User</em> &amp; <em>Group</em>) recursively</td>
+</tr>
+<tr>
+<td></td>
+<td><code>user filename</code></td>
+<td>Change owner (<em>User</em>)</td>
+</tr>
+<tr>
+<td></td>
+<td><code>:group filename</code></td>
+<td>Change owner (<em>Group</em>)</td>
+</tr>
+<tr>
+<td><code>chgroup</code></td>
+<td><code>group filename</code></td>
+<td>Change owner (<em>Group</em>)</td>
+</tr>
+</tbody>
+</table><h1 id="ssh">SSH</h1>
+<p>Configuration is done in <code>/etc/ssh/sshd_config</code>.</p>
+<p>Reload SSH service with <code>systemctl reload sshd</code> to apply changes!</p>
+<p>DenyUsers, AllowUsers, DenyGroups, AllowGroups override each other and are applied in the order listed above.</p>
+
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PermitRootLogin</code></td>
+<td><code>no</code></td>
+<td>Deny root to login via SSH</td>
+</tr>
+<tr>
+<td></td>
+<td><code>yes</code></td>
+<td>Allow root to login via SSH</td>
+</tr>
+<tr>
+<td></td>
+<td><code>without-password</code></td>
+<td>Allow only with private/public key auth</td>
+</tr>
+<tr>
+<td><code>AllowUsers</code></td>
+<td><code>user1 user2</code></td>
+<td>Allow only user1 and user2</td>
+</tr>
+<tr>
+<td><code>DenyUsers</code></td>
+<td><code>user1 user2</code></td>
+<td>Allow all users but user1 and user2</td>
+</tr>
+<tr>
+<td><code>AllowGroups</code></td>
+<td><code>group1 group2</code></td>
+<td>Allow only users from specified groups</td>
+</tr>
+<tr>
+<td><code>DenyGroups</code></td>
+<td><code>group1 group2</code></td>
+<td>Allow all users but those in specified groups</td>
+</tr>
+</tbody>
+</table><h1 id="ipv6-disable">IPv6 (disable)</h1>
+<p>Change the <em>grub</em> config <code>/etc/default/grub</code> to disalbe IPv6.</p>
+<ol>
+<li>Add <code>ipv6.disable=1</code> to the <code>GRUB_CMDLINE_LINUX</code> property.<br>
+e.g. <code>GRUB_CMDLINE_LINUX="ipv6.disalbe=1 crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap biosdevname=0 net.ifnames=0 rhgb quiet"</code></li>
+<li>Recreate grub config with <code>grub2-mkconfig -o /boot/grub2/grub.cfg</code></li>
+<li>Reboot the system with <code>init 6</code> or <code>shutdown -r now</code></li>
+</ol>
+<h1 id="cronjobs">Cronjobs</h1>
+<p><strong>Crontab</strong></p>
+<p>Cronjobs are configured in crontab files. Do not edit these files directly. Use <code>crontab -e</code> instead. This runs all required actions to activate a cronjob after saving the edited crontab. The locations are as follows:</p>
+<ul>
+<li><code>/var/spool/cron/username</code> user specific</li>
+<li><code>/etc/crontab</code> system wide crontab</li>
+</ul>
+<p>The format of the files is (user specific crontabs <strong>do not</strong> have the column <em>user-name</em>):</p>
+<pre><code>Example of job definition:
+.---------------- minute (0 - 59 | */5 [every 5 minutes])
+|  .------------- hour (0 - 23)
+|  |  .---------- day of month (1 - 31)
+|  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+|  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+|  |  |  |  |
+*  *  *  *  * user-name  command to be executed
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rpm -q cronie</code></td>
+<td>Check if package is installed</td>
+</tr>
+<tr>
+<td><code>systemctl status crond.service</code></td>
+<td>Check if service is running</td>
+</tr>
+<tr>
+<td><code>crontab -l</code></td>
+<td>List current users crontab</td>
+</tr>
+<tr>
+<td><code>crontab -e</code></td>
+<td>Edit current users crontab</td>
+</tr>
+<tr>
+<td><code>crontab -e -u username</code></td>
+<td>Edit specific users crontab</td>
+</tr>
+<tr>
+<td><code>crontab -r</code></td>
+<td>Remove current users crontab</td>
+</tr>
+</tbody>
+</table><p><strong>Script folders</strong></p>
+<p>Scripts in one of the following directories will be executed at the intervall specified by the directory’s name:</p>
+<ul>
+<li><code>/etc/cron.hourly</code></li>
+<li><code>/etc/cron.daily</code></li>
+<li><code>/etc/cron.weekly</code></li>
+<li><code>/etc/cron.monthly</code></li>
+</ul>
+<p><strong>Allow / Deny usage</strong></p>
+<p>Add user names one per line to the following files:</p>
+<ul>
+<li><code>/etc/cron.allow</code> Whitelist</li>
+<li><code>/etc/cron.deny</code> Blacklist</li>
+</ul>
+<p>If none of the files exists, all users are allowed.</p>
+<p><strong>Logs and Results</strong></p>
+<p>Execution of cronjobs is logged in <code>/var/log/cron</code>.<br>
+Results are sent to the users mail <code>/var/spool/mail/username</code>.</p>
+<h1 id="package-management">Package Management</h1>
+<h2 id="rpm">RPM</h2>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rpm -i rpmfile|rpmurl</code></td>
+<td>Install package</td>
+</tr>
+<tr>
+<td><code>rpm -e packagename</code></td>
+<td>Uninstall package</td>
+</tr>
+<tr>
+<td><code>rpm -q packagename</code></td>
+<td>Check if package is installed</td>
+</tr>
+<tr>
+<td><code>rpm -ql packagename</code></td>
+<td>List files in a package</td>
+</tr>
+<tr>
+<td><code>rpm -qa</code></td>
+<td>List all installed packages</td>
+</tr>
+<tr>
+<td><code>rpm -qf /path/to/file</code></td>
+<td>Get package that installed the file</td>
+</tr>
+<tr>
+<td><code>rpm -qf $(which &lt;exe&gt;)</code></td>
+<td>Get package that installed the executable</td>
+</tr>
+<tr>
+<td><code>rpm -V packagename</code></td>
+<td>Validate installed package</td>
+</tr>
+</tbody>
+</table><h2 id="yum">YUM</h2>
+<p>YUM is configured in <code>/etc/yum.conf</code></p>
+<p>Repos are configured in <code>/etc/yum.repos.d/</code></p>
+<p>Log is in <code>/var/log/yum.log</code></p>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yum install packagename [-y]</code></td>
+<td>Install package (<code>-y</code> no confirm message)</td>
+</tr>
+<tr>
+<td><code>yum remove packagename</code></td>
+<td>Uninstall package</td>
+</tr>
+<tr>
+<td><code>yum update</code></td>
+<td>Update all installed packages</td>
+</tr>
+<tr>
+<td><code>yum update packagename</code></td>
+<td>Update specific package</td>
+</tr>
+<tr>
+<td><code>yum update pattern*</code></td>
+<td>Update packages using wildcard</td>
+</tr>
+<tr>
+<td><code>yum info packagename</code></td>
+<td>Get detailed info about package</td>
+</tr>
+<tr>
+<td><code>yum list packagename</code></td>
+<td>List installed and available packages</td>
+</tr>
+<tr>
+<td><code>yum search searchstring</code></td>
+<td>search for a package (name &amp; summary)</td>
+</tr>
+<tr>
+<td><code>yum search all searchstring</code></td>
+<td>search for a package (all infos)</td>
+</tr>
+<tr>
+<td><code>yum deplist packagename</code></td>
+<td>List dependencies of a package</td>
+</tr>
+<tr>
+<td><code>yum reinstall packagename</code></td>
+<td>Reinstall (corrupted) package</td>
+</tr>
+<tr>
+<td><code>yumdownloader --resolve packagename</code></td>
+<td>Download rpm package with dependencies</td>
+</tr>
+</tbody>
+</table><h1 id="services-systemd">Services (systemd)</h1>
+
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>systemctl list-dependencies</code></td>
+<td>Show Services</td>
+</tr>
+<tr>
+<td><code>systemctl start servicename</code></td>
+<td>Start service</td>
+</tr>
+<tr>
+<td><code>systemctl enable servicename</code></td>
+<td>Start service with system</td>
+</tr>
+<tr>
+<td><code>systemctl status servicename</code></td>
+<td>Show service status</td>
+</tr>
+</tbody>
+</table><h1 id="nfs">NFS</h1>
+<p><strong>Installation (Client &amp; Server)</strong></p>
+<pre class=" language-bash"><code class="prism  language-bash">yum <span class="token function">install</span> nfs-utils
+</code></pre>
+<p><strong>Server</strong><br>
+Configuration is done in <code>/etc/exports</code>.</p>
+<pre class=" language-bash"><code class="prism  language-bash">systemctl start nfs-server.service  <span class="token comment"># Start service</span>
+systemctl <span class="token function">enable</span> nfs-server.service <span class="token comment"># Start service at system start</span>
+<span class="token function">vi</span> /etc/exports                     <span class="token comment"># Change config</span>
+exportfs -fa                        <span class="token comment"># Reload config (server)</span>
+</code></pre>
+<p>In <code>/etc/exports</code> create a new line for every directory you want to share in the following format:</p>
+<p><code>&lt;dir&gt; &lt;destination1&gt;(&lt;options&gt;) [&lt;destination2&gt;(&lt;options&gt;)]</code></p>
+<ul>
+<li><code>&lt;dir&gt;</code> Directory to export</li>
+<li><code>&lt;destinationx&gt;</code> Client to allow access (by FQDN, hostname, ip, ip networks <code>192.168.0.0/28</code>)</li>
+<li><code>&lt;options&gt;</code> Comma delimited configuration options
+<ul>
+<li><code>rw</code> Read/Write access</li>
+<li><code>ro</code> <strong>default</strong> Read-only access</li>
+<li><code>async</code> Aynchronous write (faster but can corrupt files)</li>
+<li><code>root_squash</code> <strong>default</strong> Anfragen von root werden anonymous zugewiesen</li>
+<li><code>no_root_squash</code> Anfragen von root werden root zugewiesen</li>
+<li><code>all_squash</code> Alle Anfragen werden anonymous zugewiesen</li>
+</ul>
+</li>
+</ul>
+<p>Examples:</p>
+<pre><code>/               master(rw) trusty(rw,no_root_squash)
+/projects       proj*.local.domain(rw)
+/usr            *.local.domain(ro)
+/home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)
+/pub            *(ro,insecure,all_squash)
+/foo            2001:db8:9:e54::/64(rw) 192.0.2.0/24(rw)
+/build          buildhost[0-9].local.domain(rw)
+</code></pre>
+<p><strong>Client</strong></p>
+<pre class=" language-bash"><code class="prism  language-bash">showmount -e 192.168.1.1                    <span class="token comment"># Show NFS shares  </span>
+<span class="token function">mkdir</span> /targetdir                            <span class="token comment"># Create mountpoint</span>
+<span class="token function">mount</span> -t nfs 192.168.1.1:/shared /targetdir <span class="token comment"># Mount manually   </span>
+<span class="token function">umount</span> /targetdir                           <span class="token comment"># Unmount manually </span>
+<span class="token function">vi</span> /etc/fstab                               <span class="token comment"># Mount on system start</span>
+<span class="token function">mount</span> -a                                    <span class="token comment"># Test fstab</span>
+init 0                                      <span class="token comment"># Auto mount</span>
+</code></pre>
+<p>Example of <code>/etc/fstab</code>:</p>
+<pre><code>192.168.1.1:/shared  /targetdir nfs  async  0 0
+</code></pre>
+<h1 id="samba">Samba</h1>
+<p><strong>Server</strong></p>
+<p>Configuration is done in <code>/etc/samba/smb.conf</code>.</p>
+<p>Local accounts must be registered with Samba using <code>smbpasswd</code>.<br>
+Enter the same password as for the local account and add <code>unix password sync = yes</code> to <code>/etc/samba/smb.conf</code>. Then it should be synced automatically when you change it with <code>passwd</code>.</p>
+<pre class=" language-bash"><code class="prism  language-bash">yum <span class="token function">install</span> samba samba-client samba-common <span class="token comment"># Samba installation</span>
+systemctl start smb                         <span class="token comment"># Start service</span>
+systemctl <span class="token function">enable</span> smb                        <span class="token comment"># Start service on system start</span>
+<span class="token function">vi</span> /etc/samba/smb.conf                      <span class="token comment"># Change config</span>
+testparm                                    <span class="token comment"># Check if config is ok</span>
+systemctl restart smb                       <span class="token comment"># Reload config</span>
+smbpasswd -a username                       <span class="token comment"># Register user with samba</span>
+</code></pre>
+<p>Example of <code>/etc/samba/smb.conf</code>:</p>
+<pre class=" language-ini"><code class="prism  language-ini"><span class="token selector">[global]</span>
+<span class="token constant">  workgroup</span> <span class="token attr-value"><span class="token punctuation">=</span> WORKGROUP             # workgroup of smb server</span>
+  netbios name <span class="token attr-value"><span class="token punctuation">=</span> centos             # name of smb server</span>
+<span class="token constant">  security</span> <span class="token attr-value"><span class="token punctuation">=</span> user                   # security mode (user / ads / domain)</span>
+  unix password sync <span class="token attr-value"><span class="token punctuation">=</span> yes          # sync unix password with smb password</span>
+  invalid user <span class="token attr-value"><span class="token punctuation">=</span> root bin daemon    # deny access globally (config in share section overrides this)</span>
+
+<span class="token selector">[Transfer]</span>                        # name of share
+<span class="token constant">  path</span> <span class="token attr-value"><span class="token punctuation">=</span> /transfer                  # path of directory to be shared</span>
+<span class="token constant">  comment</span> <span class="token attr-value"><span class="token punctuation">=</span> File transfer           # description</span>
+  read only <span class="token attr-value"><span class="token punctuation">=</span> no                    # access permissions</span>
+  guest ok <span class="token attr-value"><span class="token punctuation">=</span> no                     # allow guest access (no password)</span>
+<span class="token constant">  browsable</span> <span class="token attr-value"><span class="token punctuation">=</span> yes                   # visible or hidden?</span>
+  valid users <span class="token attr-value"><span class="token punctuation">=</span> username @groupname # allow user/group to access the share</span>
+</code></pre>
+<p>The special <code>[homes]</code> section automatically shares the users home directory under the following conditions:</p>
+<ul>
+<li>A users tries to access a share with the name of his user account</li>
+<li>There is no explicit section for this share in <code>smb.conf</code></li>
+<li>The user account exists in <code>/etc/passwd</code></li>
+</ul>
+<p>If the path is not defined in the section, the home path of the user in <code>/etc/passwd</code> is used.<br>
+The <code>browsable</code> options has a different meaning in this section and specifies wheter the personal share should be listed. The usual <code>browsable</code> option is inherited from the <code>[global]</code> section.<br>
+You can use variables to change the path for example:</p>
+<ul>
+<li><code>%U</code> current user name</li>
+<li><code>%H</code> current users home directory</li>
+</ul>
+<p>Example:</p>
+<pre class=" language-ini"><code class="prism  language-ini"><span class="token selector">[homes]</span>
+<span class="token constant">  browsable</span> <span class="token attr-value"><span class="token punctuation">=</span> no</span>
+<span class="token constant">  writable</span> <span class="token attr-value"><span class="token punctuation">=</span> yes</span>
+<span class="token constant">  path</span> <span class="token attr-value"><span class="token punctuation">=</span> %H/smb</span>
+</code></pre>
+<p><strong>Client</strong></p>
+<pre class=" language-bash"><code class="prism  language-bash">yum <span class="token function">install</span> samba-client cifs-utils                       <span class="token comment"># Install client and tools</span>
+smbclient -L //server                                     <span class="token comment"># Show SMB shares</span>
+<span class="token function">mkdir</span> /targetdir                                          <span class="token comment"># Create mountpoint</span>
+mount.cifs -o username<span class="token operator">=</span>jenkins //server/james /mountpoint <span class="token comment"># Mount manually</span>
+umount.cifs /mountpoint                                   <span class="token comment"># Unmount manually</span>
+<span class="token function">vi</span> /etc/fstab                                             <span class="token comment"># Mount on system start</span>
+<span class="token function">vi</span> /root/cifs/.username                                   <span class="token comment"># Create credential file</span>
+<span class="token function">mount</span> -a                                                  <span class="token comment"># Test fstab</span>
+init 0                                                    <span class="token comment"># Auto mount</span>
+</code></pre>
+<p>Example for <code>/etc/fstab</code>:</p>
+<pre><code>//server/share  /targetdir cifs  credentials=/root/cifs/.username  0 0
+</code></pre>
+<p>Example for <code>/root/cifs/.username</code>:</p>
+<pre class=" language-ini"><code class="prism  language-ini"><span class="token constant">username</span><span class="token attr-value"><span class="token punctuation">=</span>username</span>
+<span class="token constant">password</span><span class="token attr-value"><span class="token punctuation">=</span>password</span>
+</code></pre>
+<h1 id="ftp">FTP</h1>
+<p>Configuration is done in <code>/etc/vsftpd/vsftpd.conf</code></p>
+<p>Example:</p>
+<pre class=" language-ini"><code class="prism  language-ini"><span class="token constant">anonymous_enable</span><span class="token attr-value"><span class="token punctuation">=</span>NO</span>
+<span class="token constant">local_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">write_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">local_umask</span><span class="token attr-value"><span class="token punctuation">=</span>022</span>
+<span class="token constant">dirmessage_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">xferlog_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">connect_from_port_20</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">xferlog_std_format</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">listen</span><span class="token attr-value"><span class="token punctuation">=</span>NO</span>
+<span class="token constant">listen_ipv6</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">pam_service_name</span><span class="token attr-value"><span class="token punctuation">=</span>vsftpd</span>
+<span class="token constant">tcp_wrappers</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">use_localtime</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">dirlist_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">pasv_enable</span><span class="token attr-value"><span class="token punctuation">=</span>YES</span>
+<span class="token constant">pasv_min_port</span><span class="token attr-value"><span class="token punctuation">=</span>41361</span>
+<span class="token constant">pasv_max_port</span><span class="token attr-value"><span class="token punctuation">=</span>65534</span>
+<span class="token constant">pasv_address</span><span class="token attr-value"><span class="token punctuation">=</span>192.168.1.10</span>
+</code></pre>
+<pre class=" language-bash"><code class="prism  language-bash">yum <span class="token function">install</span> vsftpd <span class="token function">ftp</span>    <span class="token comment"># Install server and client</span>
+systemctl start vsftpd    <span class="token comment"># Start service</span>
+systemctl <span class="token function">enable</span> vsftpd   <span class="token comment"># Start service on system start</span>
+<span class="token function">vi</span> /etc/vsftp/vsftpd.conf <span class="token comment"># Change config</span>
+systemctl restart vsftpd  <span class="token comment"># Load modified config</span>
+</code></pre>
+<h1 id="mysql-server">MySQL Server</h1>
+<pre class=" language-bash"><code class="prism  language-bash">yum <span class="token function">install</span> mariadb-server <span class="token comment"># Install server</span>
+systemctl start mariadb    <span class="token comment"># Start service</span>
+systemctl <span class="token function">enable</span> mariadb   <span class="token comment"># Start service on system start</span>
+mysql_secure_installation  <span class="token comment"># Run security wizard</span>
+mysql -u root -p           <span class="token comment"># Connect to MySQL</span>
+</code></pre>
+<h1 id="other">Other</h1>
+<p>Stuff probably relevant for the exam.</p>
+<p>Exam result file: <code>/sbin/result</code></p>
+<pre class=" language-bash"><code class="prism  language-bash"><span class="token function">useradd</span> username <span class="token punctuation">[</span>-G wheel<span class="token punctuation">]</span>             <span class="token comment"># add user and allow sudo</span>
+<span class="token function">usermod</span> -aG wheel username              <span class="token comment"># allow sudo for existing user</span>
+<span class="token function">sudo</span> -i                                 <span class="token comment"># enter interactive root session</span>
+yum <span class="token function">install</span> man-pages                   <span class="token comment"># install man pages</span>
+timedatectl set-timezone Europe/Zurich  <span class="token comment"># change time zone</span>
+timedatectl set-local-rtc 0             <span class="token comment"># set RTC to use UTC</span>
+yum check-update                        <span class="token comment"># check for updates</span>
+yum update                              <span class="token comment"># install all available updates</span>
+localectl                               <span class="token comment"># show locale configuration</span>
+localectl list-keymaps <span class="token operator">|</span> <span class="token function">grep</span> ch        <span class="token comment"># show available keymaps</span>
+localectl set-keymap ch                 <span class="token comment"># set keymap to ch (doesn't affect ssh session)</span>
+localectl set-x11-keymap ch             <span class="token comment"># set keymap to ch (doesn't affect ssh session)</span>
+</code></pre>
+
+    </div>
+  </div>
+</body>
+
+</html>
