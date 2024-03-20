@@ -476,3 +476,18 @@ header {
     margin-left: auto;
     margin-right: auto;
 }
+
+/*dark mode*/
+
+}
+
+dark-mode-toggle {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.dark {
+    color: white;
+    background-color: black;
+}
